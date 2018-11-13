@@ -148,7 +148,22 @@ button:hover {
   display: table;
   clear: both;
 }
+/* totla price  */
+.price {
+	float: right;
+	padding-right: 50px;
+}
+/* Label Disable */
+.disabled {
+	color: #7f8c8d;
+	text-decoration: line-through;
+ }
 
+ /* error message */
+ .errorMsg {
+	 color: #eb4d4b;
+	 padding-bottom: 10px;
+ }
 /* ================================= 
   Media Queries
 ==================================== */
