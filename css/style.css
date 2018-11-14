@@ -162,8 +162,13 @@ button:hover {
  /* error message */
  .errorMsg {
 	 color: #eb4d4b;
-	 padding-bottom: 10px;
+	 padding-bottom: 15px;
+	 font-size: 15px;
  }
+ .validData {
+	 border: 3px solid #7bed9f;
+ }
+ 
 /* ================================= 
   Media Queries
 ==================================== */

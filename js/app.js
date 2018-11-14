@@ -44,14 +44,13 @@ $('#design').on('change', ()=>{
             $('#color ').each(()=>{
                 
                 for(let i =0 ; i <3; i++){
-                      console.log($('#color option').eq(i).show());
+                      $('#color option').eq(i).show()
                 }
                 
             })
         } else{
             for(let i =0 ; i <$('#color option').length; i++){
-                console.log($('#color option').eq(i).show());
-                
+                $('#color option').eq(i).show()
                 $('#color option:eq(0)').text(primaryVal)   
           }
           
@@ -231,79 +230,129 @@ $(' .activities label ').each((index, el)=>{
         // stop form reloading after submition 
         e.preventDefault();
 
+        // cleanning form 
+        // $('input').val('')
         // name validation 
-        const $name = $('#name').val();
         const nameRegEx = /^[a-z]+ [a-z ,'-]+$/i
-        if($name === '' || !nameRegEx.test($name)){
-            $('.nameMsg').text('Enter a correct name');
-            $('.nameMsg').addClass('errorMsg');
-           
-        } else (
-            $('.nameMsg').hide()
-        )
-
-
-        // email validation
-        const $email = $('#mail').val();
-        const emailRegEx = /^(\w[\w+.'-]*@\w+(\.[a-z]+)*)$/;
+        const emailRegEx = /^(\w[\w+.'-]*@\w+\.[a-z]+)*$/;
         
-        if($email === '' || !emailRegEx.test($email)){
-            console.log()
-            $('.emailMsg').text('Enter a valid mail');
-            $('.emailMsg').addClass('errorMsg');
-        } else {
-            $('.emailMsg').hide()
-        }
-
-        // checking if at least one checkbox is selected
-        const $selectedActivities = $('.activities input:checked').length > 0;
-        if( $selectedActivities === false){
-            $('.activitiesMsg').text('Select at least one ctivity');
-            $('.activitiesMsg').addClass('errorMsg');
-        } else {
-            $('.activitiesMsg').hide()
-        }
-        // credit card validation
+        
         const creditFieldRegEx = /^[0-9]{13,16}/
         const zipCodeFieldRegEx = /^[0-9]{5}/
         const cvvFieldRegEx = /^[0-9]{3}/
 
         const $creditFeild = $('#cc-num').val()
-        const $zipCodeFeild = $('#cc-num').val()
-        const $cvvFeild = $('#cc-num').val()
+        const $zipCodeFeild = $('#zip').val()
+        const $cvvFeild = $('#cvv').val()
+        
+        const $name = $('#name').val();
+        const $email = $('#mail').val();
+        const $selectedActivities = $('.activities input:checked').length > 0;
+        if(nameRegEx.test($name) && emailRegEx.test($email) && 
+            $selectedActivities && creditFieldRegEx.test($creditFeild)
+            && zipCodeFieldRegEx.test($zipCodeFeild) && 
+            cvvFieldRegEx.test($cvvFeild)){
 
-        if( $creditFeild === '' || !creditFieldRegEx.test($creditFeild)){
+            location.reload();
+             $('input').val('');
             
-            if(!emailRegEx.test($email)){
+        }
+        if($name === '') {
+            
+                $('.nameMsg').text('This feild has been left empty');
+                $('.nameMsg').addClass('errorMsg');}
+               
+             else {
                 
-                $('.ccMsg').text('Enter valid creadit card');
+                $('.nameMsg').hide()
+             }
+
+        
+      
+       
+
+
+        // email validation 
+        if($email === '' ){
+            
+            $('.emailMsg').text('This feild has been left empty');
+            $('.emailMsg').addClass('errorMsg');
+        } 
+        else if(emailRegEx.test($email) === false){
+            
+                $('.emailMsg').text('Email not valid');
+                $('.emailMsg').addClass('errorMsg');
+            }  else {
+                $('.emailMsg').hide()
+            }
+            
+            
+        
+
+        // checking if at least one checkbox is selected
+       
+        if( $selectedActivities === false){
+            $('.activitiesMsg').text('Select at least one activity');
+            $('.activitiesMsg').addClass('errorMsg');
+        } else {
+            $('.activitiesMsg').hide()
+        }
+       
+
+       
+        // credit validation
+        if( $creditFeild === ''){
+            
+                $('.ccMsg').text('This field habe been left empty');
                 $('.ccMsg').addClass('errorMsg');
-            } else {
-                $('.ccMsg').hide()
+            } else if (creditFieldRegEx.test($creditFeild) === false){
+                $('.ccMsg').text('This field needs 13 to 16 numbers');
+                $('.ccMsg').addClass('errorMsg');
+            } else{
+                $('.ccMsg').hide();
             }
-        }
-        if( $zipCodeFeild === '' || !zipCodeFieldRegEx.test($zipCodeFeild)){
-          
 
-            if(!zipCodeFieldRegEx.test($zipCodeFeild)){
-                
-                $('.zipMsg').text('Enter valid zip code ');
-                $('.zipMsg').addClass('errorMsg');
-            } else {
-                $('.zipMsg').hide()
-            }
+        //    zip validation 
+            if( $zipCodeFeild=== ''){
             
-        }
-        if( $cvvFeild === '' || !creditFieldRegEx.test($cvvFeild)){
-           
-
-            if(!creditFieldRegEx.test($cvvFeild)){
-                
-                $('.cvvlMsg').text('Enter valid zip code ');
-                $('.cvvlMsg').addClass('errorMsg');
-            } else {
-                $('.cvvlMsg').hide()
+                $('.zipMsg').text('This field habe been left empty');
+                $('.zipMsg').addClass('errorMsg');
+            } else if (zipCodeFieldRegEx.test($zipCodeFeild) === false){
+                $('.zipMsg').text('This field needs 5 numbers');
+                $('.zipMsg').addClass('errorMsg');
+            } else{
+                $('.zipMsg').hide();
             }
-        }
+            // cvv validation 
+            if( $cvvFeild === ''){
+            
+                $('.cvvlMsg').text('This field habe been left empty');
+                $('.cvvlMsg').addClass('errorMsg');
+            } else if (cvvFieldRegEx.test($cvvFeild) === false){
+                $('.cvvlMsg').text('This field needs 3 numbers');
+                $('.cvvlMsg').addClass('errorMsg');
+            } else{
+                $('.cvvlMsg').hide();
+            }
+
         
     });
+
+    //Real-time Error Messages for the name field
+    $('#name').on('keyup', function(){
+        const $name = $(this).val()
+        const nameRegEx = /^[a-z]+ [a-z ,'-]+$/i
+        if(!nameRegEx.test($name)){
+            $('.nameMsg').text('Enter a correct name');
+            $('.nameMsg').addClass('errorMsg'); 
+           
+        } else {
+            
+            $('.nameMsg').hide()
+           
+        }
+    })
+
+   
+   
+       
